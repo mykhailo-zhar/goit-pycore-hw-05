@@ -25,7 +25,7 @@ def generator_numbers(text: str) -> Generator[Decimal, None, None]:
         yield Decimal(number.group().strip())
 
 
-def sum_profits(text: str, func: Callable[[str], Decimal]) -> Decimal:
+def sum_profit(text: str, func: Callable[[str], Decimal]) -> Decimal:
     """
     A function that sums the numbers in the text
 

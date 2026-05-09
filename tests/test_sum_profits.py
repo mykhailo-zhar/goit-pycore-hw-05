@@ -4,7 +4,7 @@ from typing import assert_type
 
 import pytest
 
-from src.sum_profits import generator_numbers, sum_profits
+from src.sum_profit import generator_numbers, sum_profit
 
 
 def test_generator_numbers_signature():
@@ -35,7 +35,7 @@ def test_sum_profits_func_throws_error(func):
         func (Callable[[str], Decimal]): A function that extracts the numbers from the text
     """
     with pytest.raises(TypeError):
-        sum_profits("Company A: $100, Company B: $200, Company C: $300", func)
+        sum_profit("Company A: $100, Company B: $200, Company C: $300", func)
 
 
 @pytest.mark.parametrize("text", [1, 1.5, True, False, [1], {1: 1}, (1, 1)])
@@ -47,7 +47,7 @@ def test_sum_profits_text_throws_error(text):
         text (str): The text to extract the numbers from
     """
     with pytest.raises(TypeError):
-        sum_profits(text, generator_numbers)
+        sum_profit(text, generator_numbers)
 
 
 @pytest.mark.parametrize(
@@ -80,7 +80,7 @@ def test_sum_profit_signature():
     """
     Test the signature of the sum_profits function
     """
-    assert_type(sum_profits, Callable[[str, Callable[[str], Decimal]], Decimal])
+    assert_type(sum_profit, Callable[[str, Callable[[str], Decimal]], Decimal])
 
 
 @pytest.mark.parametrize(
@@ -100,4 +100,4 @@ def test_sum_profit_returns_correct_value(text, expected):
         text (str): The text to extract the numbers from
         expected (Decimal): The expected result
     """
-    assert sum_profits(text, generator_numbers) == expected
+    assert sum_profit(text, generator_numbers) == expected
