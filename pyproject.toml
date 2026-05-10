@@ -23,6 +23,7 @@ dependencies = [
     "pytest-cov>=7.1.0",
     "pytest-sphinx>=0.7.1",
     "requests==2.33.1",
+    "rich>=15.0.0",
     "roman-numerals==4.1.0",
     "snowballstemmer==3.0.1",
     "sphinx==9.1.0",
