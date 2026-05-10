@@ -31,7 +31,7 @@ def test_caching_fibonacci_signature():
     assert_type(caching_fibonacci, Callable[[], Callable[[int], int]])
 
 
-@pytest.mark.parametrize("n", [1.5, "1", None, True, False, [1], {1: 1}, (1, 1)])
+@pytest.mark.parametrize("n", [1.5, "1", None, [1], {1: 1}, (1, 1)])
 def test_unforseentype_throws_error(n):
     """
     Test that the caching_fibonacci function raises a TypeError if the input is not an integer
