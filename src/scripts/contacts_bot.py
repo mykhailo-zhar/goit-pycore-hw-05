@@ -1,3 +1,4 @@
+import functools
 import sys
 from pathlib import Path
 
@@ -11,6 +12,17 @@ INVALID_COMMAND = "Invalid command."
 
 
 def input_error(func):
+    """
+    A decorator that wraps the input error.
+
+    Args:
+        func (Callable): The function to wrap.
+
+    Returns:
+        Callable: The wrapped function.
+    """
+
+    @functools.wraps(func)
     def wrapper(*args, **kwargs):
         try:
             return func(*args, **kwargs)
