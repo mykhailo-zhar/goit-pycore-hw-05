@@ -48,7 +48,7 @@ def hello(arguments: list[str] = []) -> str:
         str: The hello message.
     """
     if arguments:
-        return INVALID_COMMAND
+        raise ValueError(INVALID_COMMAND)
 
     return "How can I help you?"
 
@@ -66,14 +66,14 @@ def add_contact(book: dict[str, str], arguments: list[str]) -> str:
         str: The response to the command.
     """
     if len(arguments) != 2:
-        return INVALID_COMMAND
+        raise ValueError(INVALID_COMMAND)
     name, phone = arguments
     if not validate_name(name, no_spaces=True):
-        return INVALID_COMMAND
+        raise ValueError(INVALID_COMMAND)
     if not validate_phone(phone):
-        return INVALID_COMMAND
+        raise ValueError(INVALID_COMMAND)
     if name in book:
-        return "Please change the user"
+        raise ValueError("Please change the user")
     book.update({name: phone})
     return "Contact added."
 
@@ -91,14 +91,14 @@ def update_contact(book: dict[str, str], arguments: list[str]) -> str:
         str: The response to the command.
     """
     if len(arguments) != 2:
-        return INVALID_COMMAND
+        raise ValueError(INVALID_COMMAND)
     name, phone = arguments
     if not validate_name(name, no_spaces=True):
-        return INVALID_COMMAND
+        raise ValueError(INVALID_COMMAND)
     if not validate_phone(phone):
-        return INVALID_COMMAND
+        raise ValueError(INVALID_COMMAND)
     if name not in book:
-        return "No such user"
+        raise ValueError("No such user")
     book.update({name: phone})
     return "Contact updated."
 
@@ -116,10 +116,10 @@ def show_phone(book: dict[str, str], arguments: list[str]) -> str:
         str: The response to the command.
     """
     if len(arguments) != 1:
-        return INVALID_COMMAND
+        raise ValueError(INVALID_COMMAND)
     name = arguments[0]
     if not validate_name(name, no_spaces=True):
-        return INVALID_COMMAND
+        raise ValueError(INVALID_COMMAND)
 
     return book.get(name, "No such user")
 
@@ -137,9 +137,9 @@ def show_all(book: dict[str, str], arguments: list[str] = []) -> str:
         str: The response to the command.
     """
     if arguments:
-        return INVALID_COMMAND
+        raise ValueError(INVALID_COMMAND)
     if not book:
-        return "There are no users"
+        raise ValueError("There are no users")
 
     return f"Stored users ({len(book)}):\n{'\n'.join(f'{name}: {phone}' for name, phone in sorted(book.items()))}"
 
@@ -156,7 +156,7 @@ def exit(arguments: list[str] = []) -> str:
         str: The goodbye message.
     """
     if arguments:
-        return INVALID_COMMAND
+        raise ValueError(INVALID_COMMAND)
     return "Good bye!"
 
 
