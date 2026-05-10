@@ -10,6 +10,16 @@ from src.validations import validate_name, validate_phone
 INVALID_COMMAND = "Invalid command."
 
 
+def input_error(func):
+    def wrapper(*args, **kwargs):
+        try:
+            return func(*args, **kwargs)
+        except (ValueError, TypeError, IndexError) as e:
+            return str(e)
+
+    return wrapper
+
+
 def parse_input(line: str) -> tuple[str, list[str]]:
     """
     Parse the input.
@@ -26,6 +36,7 @@ def parse_input(line: str) -> tuple[str, list[str]]:
     return arguments[0].lower(), arguments[1:]
 
 
+@input_error
 def hello(arguments: list[str] = []) -> str:
     """
     Print the hello message.
@@ -42,6 +53,7 @@ def hello(arguments: list[str] = []) -> str:
     return "How can I help you?"
 
 
+@input_error
 def add_contact(book: dict[str, str], arguments: list[str]) -> str:
     """
     Add a new contact.
@@ -66,6 +78,7 @@ def add_contact(book: dict[str, str], arguments: list[str]) -> str:
     return "Contact added."
 
 
+@input_error
 def update_contact(book: dict[str, str], arguments: list[str]) -> str:
     """
     Update a contact.
@@ -90,6 +103,7 @@ def update_contact(book: dict[str, str], arguments: list[str]) -> str:
     return "Contact updated."
 
 
+@input_error
 def show_phone(book: dict[str, str], arguments: list[str]) -> str:
     """
     Show the phone number of a contact.
@@ -110,6 +124,7 @@ def show_phone(book: dict[str, str], arguments: list[str]) -> str:
     return book.get(name, "No such user")
 
 
+@input_error
 def show_all(book: dict[str, str], arguments: list[str] = []) -> str:
     """
     Show all contacts.
@@ -129,6 +144,7 @@ def show_all(book: dict[str, str], arguments: list[str] = []) -> str:
     return f"Stored users ({len(book)}):\n{'\n'.join(f'{name}: {phone}' for name, phone in sorted(book.items()))}"
 
 
+@input_error
 def exit(arguments: list[str] = []) -> str:
     """
     Exit the program.
